@@ -355,7 +355,13 @@ def score_docs(csv, dic_type, prob_map, score_type, out_metrics, num_docs):
 
     
     with progressbar.ProgressBar(max_value=num_docs, widgets=widgets) as bar:
-        for i, row in csv[0].iteritems():
+        items = None
+        if isinstance(csv[0], pd.Series):
+            items = csv[0].items
+        else:
+            items = csv[0].itteritems
+            
+        for i, row in items():
             scored_docs.append(nlp(row))
             bar.update(i)
 
